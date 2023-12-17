@@ -16,5 +16,7 @@
   "type": "replugged-plugin",
   "renderer": "src/index.tsx",
   "source": "https://github.com/Catalyst4222/DMDates",
-  "image": ["https://i.imgur.com/YD6S0VD.png"]
+  "image": [
+    "https://i.imgur.com/YD6S0VD.png"
+  ]
 }

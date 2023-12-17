@@ -27,25 +27,33 @@ export function start(): void {
     { raw: true },
   );
 
-  injector.instead<typeof mod.export, "default", [{user: User, primary: unknown}]>(mod.exports, "default", ([args], Orig) => {
-    const {user} = args;
+  injector.instead<typeof mod.export, "default", [{ user: User; primary: unknown }]>(
+    mod.exports,
+    "default",
+    ([args], Orig) => {
+      const { user } = args;
 
-    const dmTime = getFriendDate(user.id)?.toDateString() || "Unknown";
+      const dmTime = getFriendDate(user.id)?.toDateString() || "Unknown";
 
-    const name = (
-      <>
-        <Flex>
-          { // @ts-expect-error `discord-types` hasn't updated yet
-          user.globalName}
-          <Text style={{ marginLeft: 5, color: "var(--header-secondary)" }} variant="text-sm/normal">
-            Last DMed: {dmTime}
-          </Text>
-        </Flex>
-      </>
-    );
+      const name = (
+        <>
+          <Flex>
+            {
+              // @ts-expect-error `discord-types` hasn't updated yet
+              user.globalName
+            }
+            <Text
+              style={{ marginLeft: 5, color: "var(--header-secondary)" }}
+              variant="text-sm/normal">
+              Last DMed: {dmTime}
+            </Text>
+          </Flex>
+        </>
+      );
 
-    return <Orig {...args} primary={name}></Orig>;
-  });
+      return <Orig {...args} primary={name}></Orig>;
+    },
+  );
 }
 
 export function stop(): void {
